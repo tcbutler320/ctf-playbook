@@ -72,16 +72,31 @@ Successful intrusion into network & target
 ## Internal Mapping 
 Gather additional information previously unavailable
 
++  __Secret Sauce__:
+    +    __Find what CTF Creator Did__: $ history 
+    +    __
+
 ## Capturing Flags 
 Capture and document flags
 
 ## Priviledge Escelation 
 Escelate to root priviledge
 
++  __Metasploit__:
+    +    __If meterpreter shell open__: $ getsystem
+
 ## Celebration 
 Victory dance
 
++  __If CTF has a webserver__: 
+    +    __Rewrite website with your personal victory site__: $
+
 ## Documentation
+Documentation is important, as you will need to come back frequently to things you've found. 
+
++  __CherryTree__: $
++  __KeepNote__: $
++  __TextPad__: $
 
 
 
