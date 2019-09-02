@@ -58,6 +58,8 @@ Expose potential vulnerabilities
 +  __Metasploit__:
     +    __Launch Metasploit Console__: $ msfconsole 
     +    __Search for exploits__: $ search [service]
++  __NBT_Scan__: $ $ nbtscan -l [target]
++  __Enum4Linux__: $ enum4linux -a [target]
 
 ## Breach 
 Successful intrusion into network & target
