@@ -34,6 +34,7 @@ Locate and identify the target
 ``` bash
 arp-scan -l
 nmap -sn -oG sweep.txt -p [CIDR range of network] | grep "Status Up"
+netdiscover -i [interface] -p
 ```
 # Reconnaissance 2  
 Gather information on the network
@@ -43,6 +44,7 @@ Gather information on the network
 nmap -T 5 [target]
 nmap -sV -sT -O -A -p- [target]
 nmap -sU -p- [target]
+nmap -Pn -p- [target]
 
 *sparta, add [target] to scope*
 
@@ -92,6 +94,8 @@ Gather additional information previously unattainable
 
 ``` bash
 $ history 
+strings [filename.extension]
+file [filename.extension]
 ```
 
 # Command and GitTroll (CG2) 
