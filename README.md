@@ -200,10 +200,13 @@ Add your mark
 [![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#documentation)  
 
 A quick list of resources for celebrating your CTF root
-1.  Upload your Website to CTF Server 
-2.  
+1.  Upload your Website to CTF Server  
+
 ```bash
 git clone https://github.com/tcbutler320/ctf-playbook/tree/master/victory-mark
+
+rm -r /var/www
+cp victory-mark /var/www/
 
 ```
 
