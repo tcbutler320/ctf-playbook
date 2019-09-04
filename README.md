@@ -1,9 +1,9 @@
 ![](/images/ctf-playbook.png)
 
 # CTF Playbook Instructions
-CTF playbook is my personal playbook for enumeration and attack techniques. The techniques here are meant to be loud and clumsy. No fancy obfuscation here, just smash and grab the flag
+CTF playbook is my personal playbook for enumeration and attack techniques. The techniques here are meant to be loud and clumsy. No fancy obfuscation here, just smash and grab the flag. Most techniques here are bash one-liners. Ultimately, they will be looped into larger bash scripts.
 
-The playbook will loosely follow Lockheed Martin's [Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html)
+The playbook will loosely follow Lockheed Martin's [Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html). It is currently linux/unix focused, with plans to expand in the future.
 
 Start enumerating your target with plays in the playbook. When you've successfully completed a play, you can select the arrow image to be taken to the next link in the kill chain  
 
@@ -73,6 +73,7 @@ nmap --script-args=unsafe=1 --script smb-check-vulns.nse -p 445 [target]
 nmap -p80,443 [Target or CIDR] -oG - | nikto.pl -h -
 
 msfconsole
+openvas 
 
 enum4linux -a [target]
 
@@ -99,7 +100,7 @@ smbclient -L //[target]
 ```
 
 # Weaponization 
-Turn recon into actionable exploit
+Turn recon into actionable exploits
 [![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#delivery)
 
 __Brute Force Services__
@@ -154,23 +155,45 @@ Gather additional information previously unattainable
 $ history 
 strings [filename.extension]
 file [filename.extension]
+ps aux
+who
+netstat -natup
+
 ```
 
 # Command and GitTroll (CG2) 
 Establish a lasting backdoor 
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#priviledge-escelation)
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#priviledge-escelation)  
+
+If you really wanted to test this ability. You can use [Merlin](https://github.com/Ne0nd0g/merlin)
 
 # Priviledge Escelation 
 Escelate to root priviledge
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#actions-on-objectives)
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#actions-on-objectives)  
 
+__Metasploit__
 ``` bash
 meterpreter: $ getsystem
 ```
 
 # Actions on Objectives 
 Gather necessary CTF documentation (flags)
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#celebration)
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#celebration)  
+
+__Search for Flags__
+``` bash
+find "*flag*"
+find "*FLAG*"
+find "*FLAG.txt*"
+find -03 -L /var/www/ -name "*flag*"
+
+find . -type f -exec grep "*flag*" '{}' \; -print
+
+# If you've found a flag and calculated size
+find / -size -[flag size] 
+
+locate "*flag*"
+```
 
 # Celebration 
 Add your mark
