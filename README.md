@@ -16,9 +16,6 @@ Next Play Icon:
 - [Index](#index)
 - [Reconnaissance 1](#reconnaissance-1)
 - [Reconnaissance 2](#reconnaissance-2)
-    - [nmap](#nmap)
-    - [ncat](#ncat)
-    - [Web Server Enum](#web-server-enum)
 - [Reconnaissance 3](#reconnaissance-3)
 - [Weaponization](#weaponization)
 - [Delivery](#delivery)
@@ -41,42 +38,38 @@ nmap -sn -oG sweep.txt -p [CIDR range of network] | grep "Status Up"
 # Reconnaissance 2  
 Gather information on the network
 [![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-3)
-### nmap
+
 ``` bash 
 nmap -T 5 [target]
 nmap -sV -sT -O -A -p- [target]
 nmap -sU -p- [target]
-```
-### ncat
-``` bash 
+
+*sparta, add [target] to scope*
+
 nc -nv [target][port]
 nc -nlvp [target][port]
-```
-### Web Server Enum
-``` bash 
+
 firefox [target]
-nc -nlvp [target][port]
+firefox [target].robots
 dirb http://[target]
 ```
 # Reconnaissance 3 
 Expose potential vulnerabilities 
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#weaponization)
+``` bash
+nmap -sc [target]
+nmap --script discovery
+nmap --script exploit
+nmap --script "[port]-*" [target]
 
-+  __Nmap NSE Scripting Engine__:
-    +    __Run all default scripts__: $ nmap -sc [target]
-    +    __Run all discovery scripts__: $ nmap --script discovery [target]
-    +    __Run all exploit scripts__: $ nmap --script exploit [target]
-    +    __Use all Scripts for a service__: $ #nmap --script "[port]-*" [target]
-    +    __SMB-OS-Discovery__: $ 
-    +    __Look at Help Script__: $ nmap --script-help script
-+  __Searchsploit__: $ searchsploit [services]
-+  __Metasploit__:
-    +    __Launch Metasploit Console__: $ msfconsole 
-    +    __Search for exploits__: $ search [service]
-+  __NBT_Scan__: $ $ nbtscan -l [target]
-+  __Enum4Linux__: $ enum4linux -a [target]
+msfconsole
 
+nbtscan -l [target]
+enum4linux -a [target]
+```
 # Weaponization 
-Successful intrusion into network & target
+Turn recon into actionable exploit
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#delivery)
 
 +  __Metasploit__:
     +    __Select Exploit__: $ use [exploit]
@@ -86,31 +79,41 @@ Successful intrusion into network & target
     +    __Check for session__: $ session -ls
 
 # Delivery 
+Deliver payload to the target
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#exploitation)
 
 # Exploitation 
+Successful gain unauthorized access
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-4)
 
 # Reconnaissance 4
-Gather additional information previously unavailable
+Gather additional information previously unattainable
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#command-and-gittroll-(cg2))
 
-+  __Secret Sauce__:
-    +    __Find what CTF Creator Did__: $ history 
-    +    __
+``` bash
+$ history 
+```
 
 # Command and GitTroll (CG2) 
+Establish a lasting backdoor 
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#priviledge-escelation)
 
 # Priviledge Escelation 
 Escelate to root priviledge
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#actions-on-objectives)
 
-+  __Metasploit__:
-    +    __If meterpreter shell open__: $ getsystem
+``` bash
+meterpreter: $ getsystem
+```
 
 # Actions on Objectives 
+Gather necessary CTF documentation (flags)
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#celebration)
 
 # Celebration 
-Victory dance
+Add your mark
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#documentation)
 
-+  __If CTF has a webserver__: 
-    +    __Rewrite website with your personal victory site__: $
 
 # Documentation
 Documentation is important, as you will need to come back frequently to things you've found. 
