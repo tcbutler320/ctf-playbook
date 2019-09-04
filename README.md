@@ -165,7 +165,7 @@ netstat -natup
 Establish a lasting backdoor 
 [![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#priviledge-escelation)  
 
-If you really wanted to test this ability. You can use [Merlin](https://github.com/Ne0nd0g/merlin)
+If you really wanted to test this ability. You can use [Merlin](https://github.com/Ne0nd0g/merlin). This is out of scope for boot to root CTF competitions, but has some potential functionality in larger format events.
 
 # Priviledge Escelation 
 Escelate to root priviledge
@@ -197,8 +197,15 @@ locate "*flag*"
 
 # Celebration 
 Add your mark
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#documentation)
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#documentation)  
 
+A quick list of resources for celebrating your CTF root
+1.  Upload your Website to CTF Server 
+2.  
+```bash
+git clone https://github.com/tcbutler320/ctf-playbook/tree/master/victory-mark
+
+```
 
 # Documentation
 Documentation is important, as you will need to come back frequently to things you've found. 
