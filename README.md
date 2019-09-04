@@ -1,50 +1,64 @@
-# CTF-Playbook
-
 ![](/images/ctf-playbook.png)
 
-My personal CTF playbook for enumeration and attack techniques. This playbook is different then a pentester's playbook, as these techniques are meant to be loud and clumsy. No fancy obfuscation here, smash and grab. 
+# CTF Playbook Instructions
+CTF playbook is my personal playbook for enumeration and attack techniques. The techniques here are meant to be loud and clumsy. No fancy obfuscation here, just smash and grab the flag
 
-## Index
-- [CTF-Playbook](#ctf-playbook)
-  - [Index](#index)
-  - [Initial Recon](#initial-recon)
-  - [Network Mapping](#network-mapping)
-  - [Finding Vulnerabilities](#finding-vulnerabilities)
-  - [Breach](#breach)
-  - [Internal Mapping](#internal-mapping)
-  - [Capturing Flags](#capturing-flags)
-  - [Priviledge Escelation](#priviledge-escelation)
-  - [Celebration](#celebration)
-  - [Documentation](#documentation)
+The playbook will loosely follow Lockheed Martin's [Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html)
+
+Start enumerating your target with plays in the playbook. When you've successfully completed a play, you can select the arrow image to be taken to the next link in the kill chain  
+
+Next Play Icon:  
+
+![alt text][logo]  
+
+# Index
+- [CTF Playbook Instructions](#ctf-playbook-instructions)
+- [Index](#index)
+- [Reconnaissance 1](#reconnaissance-1)
+- [Reconnaissance 2](#reconnaissance-2)
+    - [nmap](#nmap)
+    - [ncat](#ncat)
+    - [Web Server Enum](#web-server-enum)
+- [Reconnaissance 3](#reconnaissance-3)
+- [Weaponization](#weaponization)
+- [Delivery](#delivery)
+- [Exploitation](#exploitation)
+- [Reconnaissance 4](#reconnaissance-4)
+- [Command and GitTroll (CG2)](#command-and-gittroll-cg2)
+- [Priviledge Escelation](#priviledge-escelation)
+- [Actions on Objectives](#actions-on-objectives)
+- [Celebration](#celebration)
+- [Documentation](#documentation)
 
 
-## Initial Recon 
-Locate and identify the target
-
-+  __Find ipv-4 addresses__: $ arp-scan -l 
-+  __Find your ipv-4 address__: $ ifconfig
-   +    __Sweep Network for Live Hosts__:$ nmap -sn -oG sweep.txt -p [CIDR range of network] | grep "Status Up" 
-
-## Network Mapping 
+# Reconnaissance 1 
+Locate and identify the target 
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-2)
+``` bash
+arp-scan -l
+nmap -sn -oG sweep.txt -p [CIDR range of network] | grep "Status Up"
+```
+# Reconnaissance 2  
 Gather information on the network
-
-+  __Basic Target Enunmeration__: 
-   +    __Quick Nmap Scan__: $ nmap -T 5 [target]
-   +    __Secondary Nmap Scan__: $ nmap -sV -sT -O -A -p- [target]
-   +    __UDP Nmap Scan__: $ nmap -sU -p- [target]
-
-
-+  __Playing with ports and Ncat__:
-    +    __Connect to a port__: $ nc -nv [target][port]
-    +   __Connect and listen to a port__: $ nc -nlvp [target][port]
-
-After open ports have been found, increase the intensity of scans and focus on service-specefic mapping
-
-+  __Web Server Enumeration__:
-   +    __Open Hosted Website__: enter ipv-4 in browser and do a manual search 
-   +    __Dirb__: $ dirb http://[target]
-
-## Finding Vulnerabilities 
+[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-3)
+### nmap
+``` bash 
+nmap -T 5 [target]
+nmap -sV -sT -O -A -p- [target]
+nmap -sU -p- [target]
+```
+### ncat
+``` bash 
+nc -nv [target][port]
+nc -nlvp [target][port]
+```
+### Web Server Enum
+``` bash 
+firefox [target]
+nc -nlvp [target][port]
+dirb http://[target]
+```
+# Reconnaissance 3 
 Expose potential vulnerabilities 
 
 +  __Nmap NSE Scripting Engine__:
@@ -61,7 +75,7 @@ Expose potential vulnerabilities
 +  __NBT_Scan__: $ $ nbtscan -l [target]
 +  __Enum4Linux__: $ enum4linux -a [target]
 
-## Breach 
+# Weaponization 
 Successful intrusion into network & target
 
 +  __Metasploit__:
@@ -71,29 +85,34 @@ Successful intrusion into network & target
     +    __Run Exploit__: $ run
     +    __Check for session__: $ session -ls
 
-## Internal Mapping 
+# Delivery 
+
+# Exploitation 
+
+# Reconnaissance 4
 Gather additional information previously unavailable
 
 +  __Secret Sauce__:
     +    __Find what CTF Creator Did__: $ history 
     +    __
 
-## Capturing Flags 
-Capture and document flags
+# Command and GitTroll (CG2) 
 
-## Priviledge Escelation 
+# Priviledge Escelation 
 Escelate to root priviledge
 
 +  __Metasploit__:
     +    __If meterpreter shell open__: $ getsystem
 
-## Celebration 
+# Actions on Objectives 
+
+# Celebration 
 Victory dance
 
 +  __If CTF has a webserver__: 
     +    __Rewrite website with your personal victory site__: $
 
-## Documentation
+# Documentation
 Documentation is important, as you will need to come back frequently to things you've found. 
 
 +  __CherryTree__: $
@@ -102,3 +121,4 @@ Documentation is important, as you will need to come back frequently to things y
 
 
 
+[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Next Play" 
