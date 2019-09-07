@@ -127,6 +127,12 @@ hydra -L ./webapp.txt -P ./webapp.txt $ip http-get /admin
 hydra -t 1 -V -f -l administrator -P /usr/share/wordlists/rockyou.txt rdp://$ip
 #Hydra brute force a Wordpress admin login
 hydra -l admin -P ./passwordlist.txt $ip -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
+```
+
+__Malicous File Upload__
+```bash
+
+```
 
 * test common services pop3,ftp,ssh, smtp
 
@@ -157,6 +163,8 @@ strings [filename.extension]
 file [filename.extension]
 ps aux
 who
+uname -a 
+printenv
 netstat -natup
 
 ```
