@@ -5,32 +5,38 @@ CTF playbook is my personal playbook for enumeration and attack techniques. The 
 
 The playbook will loosely follow Lockheed Martin's [Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html). It is currently linux/unix focused, with plans to expand in the future.
 
-Start enumerating your target with plays in the playbook. When you've successfully completed a play, you can select the arrow image to be taken to the next link in the kill chain. This process often has iterations in a loop. Use the previous play icon to return to a playset.  
+Start enumerating your target with plays in the playbook. Plays are grouped into categories called playsets. When you've successfully completed a playset, you can select the arrow image to be taken to the next link in the kill chain. This process often has iterations in a loop. Use the previous play icon to return to a playset when you've upgraded access credentials or visibility.
 
-Next Play Icon:  
+Next Play Icon:
 
-![alt text][logo]  
-
+![Alt text](/images/ctf-playbook-icon.png "Play Icon")
 
 Previous Play Icon: 
 
-![alt text][back-button]
+![Alt text](/images/ctf-back-button.png "Previous Play")
 
-# Index
+
+# Index and Playsets
 - [CTF Playbook Instructions](#ctf-playbook-instructions)
-- [Index](#index)
+- [Index and Playsets](#index-and-playsets)
 - [Reconnaissance 1](#reconnaissance-1)
 - [Reconnaissance 2](#reconnaissance-2)
 - [Reconnaissance 3](#reconnaissance-3)
 - [Weaponization](#weaponization)
-- [If you've found a flag and calculated size](#if-youve-found-a-flag-and-calculated-size)
+- [Delivery](#delivery)
+- [Exploitation](#exploitation)
+- [Reconnaissance 4](#reconnaissance-4)
+- [Command and GitTroll (CG2)](#command-and-gittroll-cg2)
+- [Priviledge Escalation](#priviledge-escalation)
+- [Actions on Objectives](#actions-on-objectives)
+- [Celebration](#celebration)
 - [Documentation](#documentation)
 - [Credit and Resources](#credit-and-resources)
 
 
 # Reconnaissance 1 
 Locate and identify the target 
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-2)  
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-2)  
 
 __Scan Network For Targets__
 ``` bash
@@ -41,7 +47,7 @@ nmap -sP [target/CIDR Range]
 ```
 # Reconnaissance 2  
 Gather information on the network
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-3)  
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-3)  
 
 __Simple Port Scanning Enumeration__
 ``` bash 
@@ -81,7 +87,8 @@ ike-scan [target]
 
 # Reconnaissance 3 
 Dig deeper into particular services
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#weaponization)
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#weaponization) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)
+
 
 __Web Server Enumeration__
 ``` bash
@@ -100,7 +107,7 @@ smbclient -L //[target]
 
 # Weaponization 
 Turn recon into actionable exploits
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#delivery)
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#delivery)
 
 __Brute Force Services__
 ```bash
@@ -143,10 +150,11 @@ __Malicous File Upload__
     +    __Set Options__: $ set [option name] [option value]
     +    __Run Exploit__: $ run
     +    __Check for session__: $ session -ls
+```
 
 # Delivery 
 Deliver payload to the target
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#exploitation)
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#exploitation)
 
 # Exploitation 
 Successful gain unauthorized access
@@ -154,7 +162,8 @@ Successful gain unauthorized access
 
 # Reconnaissance 4
 Gather additional information previously unattainable
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#command-and-gittroll-(cg2))
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#command-and-gittroll-(cg2)) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)
+
 
 ``` bash
 $ history 
@@ -170,13 +179,13 @@ netstat -natup
 
 # Command and GitTroll (CG2) 
 Establish a lasting backdoor 
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#priviledge-escelation)  
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#priviledge-escalation)  
 
 If you really wanted to test this ability. You can use [Merlin](https://github.com/Ne0nd0g/merlin). This is out of scope for boot to root CTF competitions, but has some potential functionality in larger format events.
 
-# Priviledge Escelation 
-Escelate to root priviledge
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#actions-on-objectives)  
+# Priviledge Escalation 
+Escalate to root  
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#actions-on-objectives)  
 
 __Metasploit__
 ``` bash
@@ -185,7 +194,7 @@ meterpreter: $ getsystem
 
 # Actions on Objectives 
 Gather necessary CTF documentation (flags)
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#celebration)  
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#celebration)  
 
 __Search for Flags__
 ``` bash
@@ -204,10 +213,10 @@ locate "*flag*"
 
 # Celebration 
 Add your mark
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#documentation)  
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#documentation)
 
 A quick list of resources for celebrating your CTF root
-1.  Upload your Website to CTF Server  
+1.  Overwrite your website to CTF web server  
 
 ```bash
 git clone https://github.com/tcbutler320/ctf-playbook/tree/master/victory-mark
@@ -229,11 +238,7 @@ There are countless resources and people who deserve credit for their contributi
 
 +  Credit and Resources  
     -    [CheatSheet God](https://github.com/OlivierLaflamme/Cheatsheet-God/blob/master/Cheatsheet_PenTesting.txt)
+    -    [Adam P](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png) : Logo
 
 
 [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Next Play" 
-
-[back-button] : https://github.com/tcbutler320/ctf-playbook/raw/master/images/ctf-back-button.png "back-button"
-
-
-[back-button1] : /images/ctf-back-button.png "back-button'
