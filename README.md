@@ -5,11 +5,16 @@ CTF playbook is my personal playbook for enumeration and attack techniques. The 
 
 The playbook will loosely follow Lockheed Martin's [Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html). It is currently linux/unix focused, with plans to expand in the future.
 
-Start enumerating your target with plays in the playbook. When you've successfully completed a play, you can select the arrow image to be taken to the next link in the kill chain  
+Start enumerating your target with plays in the playbook. When you've successfully completed a play, you can select the arrow image to be taken to the next link in the kill chain. This process often has iterations in a loop. Use the previous play icon to return to a playset.  
 
 Next Play Icon:  
 
 ![alt text][logo]  
+
+
+Previous Play Icon: 
+
+![alt text][back-button]
 
 # Index
 - [CTF Playbook Instructions](#ctf-playbook-instructions)
@@ -18,13 +23,7 @@ Next Play Icon:
 - [Reconnaissance 2](#reconnaissance-2)
 - [Reconnaissance 3](#reconnaissance-3)
 - [Weaponization](#weaponization)
-- [Delivery](#delivery)
-- [Exploitation](#exploitation)
-- [Reconnaissance 4](#reconnaissance-4)
-- [Command and GitTroll (CG2)](#command-and-gittroll-cg2)
-- [Priviledge Escelation](#priviledge-escelation)
-- [Actions on Objectives](#actions-on-objectives)
-- [Celebration](#celebration)
+- [If you've found a flag and calculated size](#if-youve-found-a-flag-and-calculated-size)
 - [Documentation](#documentation)
 - [Credit and Resources](#credit-and-resources)
 
@@ -35,7 +34,7 @@ Locate and identify the target
 
 __Scan Network For Targets__
 ``` bash
-arp-scan -l
+arp-scan -I [interface] -l
 nmap -sn -oG sweep.txt -p [CIDR range of network] | grep "Status Up"
 netdiscover -i [interface] -p
 nmap -sP [target/CIDR Range]
@@ -233,3 +232,8 @@ There are countless resources and people who deserve credit for their contributi
 
 
 [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Next Play" 
+
+[back-button1] : https://github.com/tcbutler320/ctf-documentor/images/ctf-back-button.png "back-button"
+
+
+[back-button1] : /images/ctf-back-button.png "back-button'
