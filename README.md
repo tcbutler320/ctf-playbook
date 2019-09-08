@@ -233,7 +233,7 @@ There are countless resources and people who deserve credit for their contributi
 
 [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Next Play" 
 
-[back-button1] : https://github.com/tcbutler320/ctf-documentor/images/ctf-back-button.png "back-button"
+[back-button] : https://github.com/tcbutler320/ctf-playbook/raw/master/images/ctf-back-button.png "back-button"
 
 
 [back-button1] : /images/ctf-back-button.png "back-button'
