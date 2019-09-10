@@ -168,7 +168,7 @@ __Upload Maliscous File__
 
 # Exploitation 
 Successful gain unauthorized access
-[![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")](#reconnaissance-4)
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-4)
 
 # Reconnaissance 4
 Gather additional information previously unattainable. Some of these will overlap with renumeration rechniques described in the [Priv Escalation Playset](#priviledge-escalation)
