@@ -348,6 +348,7 @@ There are countless resources and people who deserve credit for their contributi
     -    [CheatSheet God](https://github.com/OlivierLaflamme/Cheatsheet-God/blob/master/Cheatsheet_PenTesting.txt)
     -    [Adam P](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png) : Logo
     -    [Guif: Priv Escalation](https://guif.re/linuxeops): One of the best resources I've found for raw scripts on Priv Esc. Thanks!
+    -    [Total OSCP Guide](https://sushant747.gitbooks.io/total-oscp-guide/privilege_escalation_-_linux.html)
 
 
 [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Next Play" 
