@@ -32,6 +32,9 @@ Previous Play Icon:
 - [Celebration](#celebration)
 - [Documentation](#documentation)
 - [Credit and Resources](#credit-and-resources)
+- [Resources](#resources)
+  - [Videos](#videos)
+  - [Github](#github)
 
 
 # Reconnaissance 1 
@@ -176,22 +179,35 @@ Gather additional information previously unattainable. Some of these will overla
 
 
 ``` bash
+# Find the last commands run
 $ history 
 $ netstat -ano
 $ strings [filename.extension]
 $ file [filename.extension]
 $ ps aux
 $ who
+# Find the Kernel Version
 $ uname -a 
 $ printenv
+# Find versions of executatbles 
+$ /path/to/file -version
+# exploit outdated nmap version
+$ /usr/local/bin/nmap --interactive
+$ !sh
+$ whoami
+
 $ netstat -natup
 $ ps aux | grep root
 $ sudo -l
 $ sudo su -l
+$ lsb_release -a
 $ cat /etc/issue; cat /etc/*-release; cat /etc/lsb-release; cat /etc/redhat-release;
 $ cat /proc/version; uname -a; uname -mrs; rpm -q kernel; dmesg | grep Linux; ls /boot | grep vmlinuz-; file /bin/ls; cat /etc/lsb-release
 $ cat /etc/profile; cat /etc/bashrc; cat ~/.bash_profile; cat ~/.bashrc; cat ~/.bash_logout; env; set
 $ mount; df -h; cat /etc/fstab
+
+# Look at user permissions 
+$ ls -l
 
 # Find other Users
  $id; who; w; last; cat /etc/passwd | cut -d: -f1; echo 'sudoers:'; cat /etc/sudoers; sudo -l
@@ -216,11 +232,20 @@ If you really wanted to test this ability. You can use [Merlin](https://github.c
 Escalate to root  . [See Credit](#credit-and-resources)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#actions-on-objectives)  
 
-__Manual Testing__
+__Kicking the Tires__
 ```bash
-sudo su -
-sudo -l
+# Manual sudo to root
+$ sudo su -
+$ sudo -l
+# Get OS and Kernel Version, look for public exploits
+$ lsb_release -a
+$ uname -a 
+$ searchsploit [OS] or [Kernel]
+
+#See which processes are running with root priv
 ps aux | grep root
+# Check for SUID files in the sytem
+$ find / -perm -u=s -type f 2>/dev/null
 
 #Add user www-data to sudoers with no password
 $ echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD:ALL" >> /etc/sudoers && chmod 440 /etc/sudoers' > /tmp/update
@@ -348,6 +373,26 @@ There are countless resources and people who deserve credit for their contributi
     -    [CheatSheet God](https://github.com/OlivierLaflamme/Cheatsheet-God/blob/master/Cheatsheet_PenTesting.txt)
     -    [Adam P](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png) : Logo
     -    [Guif: Priv Escalation](https://guif.re/linuxeops): One of the best resources I've found for raw scripts on Priv Esc. Thanks!
+    -    [Total OSCP Guide](https://sushant747.gitbooks.io/total-oscp-guide/privilege_escalation_-_linux.html)
+
+# Resources 
+
+## Videos
++  [SUID and GSID](https://www.youtube.com/watch?v=DF1-XRUo6OE)
+
+## Github
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Next Play" 
