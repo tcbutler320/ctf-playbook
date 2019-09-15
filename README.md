@@ -3,7 +3,7 @@
 # CTF Playbook Instructions
 CTF playbook is my personal playbook for enumeration and attack techniques. The techniques here are meant to be loud and clumsy. No fancy obfuscation here, just smash and grab the flag. Most techniques here are bash one-liners. Ultimately, they will be looped into larger bash scripts.
 
-The playbook will loosely follow Lockheed Martin's [Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html). It is currently linux/unix focused, with plans to expand in the future.
+The playbook will loosely follow Lockheed Martin's [Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html). It is currently linux/unix focused, with plans to expand in the future.The playbook will differentiate plays but *theme*. The two current themes are __Low and Slow__ and __Move Fast and Break Things__
 
 Start enumerating your target with plays in the playbook. Plays are grouped into categories called playsets. When you've successfully completed a playset, you can select the arrow image to be taken to the next link in the kill chain. This process often has iterations in a loop. Use the previous play icon to return to a playset when you've upgraded access credentials or visibility.
 
@@ -70,6 +70,23 @@ nmap -sU --script nbstat.nse -p 137 [target]
 nc -nv [target][port]
 nc -nlvp [target][port]
 ncat [host] [port]
+
+# custom little bash script for ping sweeping 
+
+#!/bin/bash
+# usage ./arpsweep 192.168 [interface: I.E eth1]
+PREFIX=$1
+INTERFACE=$2
+for SUBNET in {1..255}
+do
+    for HOST in {1..255}
+    do
+        echo "[*] IP: "$PREFIX". "$SUBNET"."$HOST
+        arping -c 3 -i $INTERFACE $PREFIX"."$SUBNET"."$HOST 2>
+        /dev/null
+        done
+    done 
+
 ```
 __Vulnerability Scanning__
 ``` bash
@@ -89,7 +106,7 @@ ike-scan [target]
 ```
 
 # Reconnaissance 3 
-Dig deeper into particular services
+Digging deeper into particular services, and running massive vulnerability scans. 
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#weaponization) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)
 
 
@@ -99,6 +116,11 @@ firefox [target]
 firefox [target]/robots.txt
 dirb http://[target]
 nikto -h [target]
+
+# DNS enumeration 
+dig [target domain]
+whois [target domain]
+dnsmap [target domain]
 ```
 
 __NBT SMB Scan__
