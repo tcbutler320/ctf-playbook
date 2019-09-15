@@ -96,7 +96,7 @@ Dig deeper into particular services
 __Web Server Enumeration__
 ``` bash
 firefox [target]
-firefox [target].robots
+firefox [target]/robots.txt
 dirb http://[target]
 nikto -h [target]
 ```
@@ -140,7 +140,8 @@ hydra -l admin -P ./passwordlist.txt $ip -V http-form-post '/wp-login.php:log=^U
 
 __Malicous File Upload__
 ```bash
-
+# location of kali linux malicious web shells 
+# 
 ```
 
 * test common services pop3,ftp,ssh, smtp
