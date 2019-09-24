@@ -1,7 +1,7 @@
 ![](/images/ctf-playbook.png)
 
 # CTF Playbook Instructions
-CTF playbook is my personal playbook for enumeration and attack techniques. The techniques here are meant to be loud and clumsy. No fancy obfuscation here, just smash and grab the flag. Most techniques here are bash one-liners. Ultimately, they will be looped into larger bash scripts.
+CTF playbook is my personal playbook for enumeration and attack techniques. The techniques here are meant to be loud and clumsy. No fancy obfuscation here, just smash and grab the flag. Most techniques here are bash one-liners. Ultimately, they will be looped into larger bash scripts. This playbook will also be used as a jump-off point for the OSCP exam.
 
 The playbook will loosely follow Lockheed Martin's [Cyber Kill Chain](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html). It is currently linux/unix focused, with plans to expand in the future.The playbook will differentiate plays but *theme*. The two current themes are __Low and Slow__ and __Move Fast and Break Things__
 
