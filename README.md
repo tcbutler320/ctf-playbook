@@ -129,6 +129,7 @@ __Vulnerability Scanning__
 ``` bash
 nmap -sc [target]
 nmap --script discovery
+nmap -sC vuln
 nmap --script exploit
 nmap --script "[port]-*" [target]
 nmap --script-args=unsafe=1 --script smb-check-vulns.nse -p 445 [target]
