@@ -22,6 +22,8 @@ Previous Play Icon:
 - [Reconnaissance 1](#reconnaissance-1)
 - [Reconnaissance 2](#reconnaissance-2)
 - [DNS enumeration](#dns-enumeration)
+- [testing for XSS](#testing-for-xss)
+- [In a website form enter](#in-a-website-form-enter)
   - [Moving Fast and Breaking Things](#moving-fast-and-breaking-things)
 - [make output directory for skipfish](#make-output-directory-for-skipfish)
 - [get sample list](#get-sample-list)
@@ -51,6 +53,10 @@ Previous Play Icon:
 - [Check for SUID files in the sytem](#check-for-suid-files-in-the-sytem)
 - [The best script I've found by far](#the-best-script-ive-found-by-far)
 - [Above but as one script](#above-but-as-one-script)
+- [escalate to root](#escalate-to-root)
+- [get system information](#get-system-information)
+- [find network interfaces](#find-network-interfaces)
+- [drop into a shell](#drop-into-a-shell)
 - [Add sudoers](#add-sudoers)
 - [If you've found a flag and calculated size](#if-youve-found-a-flag-and-calculated-size)
 - [locate "hidden" files](#locate-%22hidden%22-files)
@@ -58,11 +64,7 @@ Previous Play Icon:
 - [Carnage (don't run this on anything you care about, you've been warned)](#carnage-dont-run-this-on-anything-you-care-about-youve-been-warned)
 - [change your mac address](#change-your-mac-address)
 - [arpspoof your address](#arpspoof-your-address)
-- [Documentation](#documentation)
-- [Credit and Resources](#credit-and-resources)
-- [Resources](#resources)
-  - [Videos](#videos)
-  - [Github](#github)
+- [list processes](#list-processes)
 
 
 # Reconnaissance 1 
@@ -161,6 +163,10 @@ arachni -u [URL]
 dig [target domain]
 whois [target domain]
 dnsmap [target domain]
+
+# testing for XSS
+# In a website form enter 
+<script>alert(1)</script>
 
 ## Moving Fast and Breaking Things
 
@@ -406,8 +412,17 @@ sys_exec('usermod -a -G admin username')
 
 ```
 __Metasploit__
+If you have a meterpreter shell
 ``` bash
-meterpreter: $ getsystem
+# escalate to root
+getsystem
+# get system information
+sysinfo
+# find network interfaces
+netstat
+# drop into a shell
+shell
+
 ```
 __Python Scripts__
 ```python
@@ -503,16 +518,32 @@ There are countless resources and people who deserve credit for their contributi
     -    [Total OSCP Guide](https://sushant747.gitbooks.io/total-oscp-guide/privilege_escalation_-_linux.html)
 
 # Resources 
++ [Metasploit Persistence](https://www.darkoperator.com/blog/2009/12/31/meterpreter-persistance.html)
++ [Reverse Shell Cheatsheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md)
++ [Post Exploitation on Windows Machines](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjkx4zftO3kAhVHwlkKHbu4ByAQFjAAegQIABAC&url=https%3A%2F%2Fwww.exploit-db.com%2Fdocs%2Fenglish%2F26000-windows-meterpreterless-post-exploitation.pdf&usg=AOvVaw3sDjaSPC-wL1miL2N-RblW)
+
 
 ## Videos
 +  [SUID and GSID](https://www.youtube.com/watch?v=DF1-XRUo6OE)
 
 ## Github
 
+# General Unix Commands
 
+```bash
+# list processes
+ps aux
+ps aux | grep [keyword]
+top
 
+```
 
+# OSCP Specefic Commands 
 
+```bash
+locate network-secret.txt
+locate proof.txt
+```
 
 
 
