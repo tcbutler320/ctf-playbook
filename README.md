@@ -217,6 +217,7 @@ sqlmap -u "domain" --dump
 sqlmap -u "domain" --os-shell
 sqlmap -u "domain" --tables
 
+
 ```  
 ### XPath Injection  
 ```bash
