@@ -741,6 +741,7 @@ There are countless resources and people who deserve credit for their contributi
 
 ## Cheat Sheets   
 + [Hausec](https://hausec.com/pentesting-cheatsheet/)
++ [Got Milk](https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/)
 
 
 ## Videos
