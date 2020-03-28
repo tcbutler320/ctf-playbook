@@ -739,6 +739,9 @@ There are countless resources and people who deserve credit for their contributi
 + [Reverse Shell Cheatsheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md)
 + [Post Exploitation on Windows Machines](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjkx4zftO3kAhVHwlkKHbu4ByAQFjAAegQIABAC&url=https%3A%2F%2Fwww.exploit-db.com%2Fdocs%2Fenglish%2F26000-windows-meterpreterless-post-exploitation.pdf&usg=AOvVaw3sDjaSPC-wL1miL2N-RblW)
 
+## Cheat Sheets   
++ [Hausec](https://hausec.com/pentesting-cheatsheet/)
+
 
 ## Videos
 +  [SUID and GSID](https://www.youtube.com/watch?v=DF1-XRUo6OE)
