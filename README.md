@@ -1119,7 +1119,10 @@ locate proof.txt
 # OSINT and Passive Information Gathering 
 
 
-
+# Linux Troubleshooting Tips
+A list of some common linux problems and potential fixes
+1)  Job for apache2.service failed because the control process exited with error code.
+  +.  Run "netstat -tulpn" and kill rinetd process with kill -9 [rinetd job id]
 
 
 
